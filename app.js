@@ -1,31 +1,14 @@
+const component = document.querySelector(".component");
+const selector = document.getElementById("selector");
+
+
+
+
 const state = {
     selectedPageIndex: 0,
     products: [],
     slicedProducts: [],
     itemsPerPage: 10,
-};
-
-const component = document.querySelector(".component");
-const selector = document.getElementById("selector");
-
-selector.addEventListener("change", function () {
-    const selectedValue = selector.value; // A kiválasztott érték lekérdezése
-    console.log("Kiválasztott érték: ", selectedValue);
-
-
-    state.itemsPerPage = Number(selectedValue);
-    state.slicedProducts = state.products.slice(0, state.itemsPerPage);
-    render();
-});
-
-
-
-window.onload = async () => {
-    const res = await fetch("https://thomasapi.eu/api/products");
-    const data = await res.json();
-    state.products = data;
-    state.slicedProducts = state.products.slice(0, state.itemsPerPage);
-    render()
 };
 
 
@@ -36,19 +19,13 @@ function navigate(selectedPageIndex) {
     const end = start + state.itemsPerPage;
     state.slicedProducts = state.products.slice(start, end);
     render();
-}
+};
 
 
 
 
 function render() {
-
-
     const numberOfPages = Math.ceil(state.products.length / state.itemsPerPage);
-    console.log(numberOfPages)
-
-
-    // const indexes = Array.from(Array(numberOfPages).keys());
 
     let indexes = [];
 
@@ -62,9 +39,6 @@ function render() {
     </li>`
     ).join("");
 
-
-
-
     component.innerHTML = `
         <nav>
             <ul class="pagination">
@@ -73,10 +47,11 @@ function render() {
 
   
         <div class="card-container" >
-            ${state.slicedProducts.map(product =>`
+            ${state.slicedProducts.map(product => `
         <div class="card">
             <img src="${product.ProductPhotoURL}" alt="kép"/>
-            <h1>${product.Name}</h1>
+            <p>${product.BrandName}</p>
+            <h2>${product.Name}</h2>
             <p>${product.Price} FT</p>
             </div>`).join("")}
         </div>`;
@@ -89,3 +64,18 @@ function render() {
 };
 
 
+
+window.onload = async () => {
+    const res = await fetch("https://thomasapi.eu/api/products");
+    const data = await res.json();
+    state.products = data;
+    state.slicedProducts = state.products.slice(0, state.itemsPerPage);
+    render()
+};
+
+selector.addEventListener("change", function () {
+    const selectedValue = selector.value; // A kiválasztott érték lekérdezése
+    state.itemsPerPage = Number(selectedValue);
+    state.slicedProducts = state.products.slice(0, state.itemsPerPage);
+    render();
+});
