@@ -1,0 +1,51 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    text-align: center;
+}
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+}
+
+
+.card {
+    max-width: 250px;
+    box-shadow: 4px 4px 8px #aaa;
+}
+.card img {
+    width: 100%;
+}
+.pagination {
+    display: flex;
+    flex-wrap: wrap;
+    gap:1rem 0.2rem;
+    justify-content: center;
+   margin: 2rem auto;
+   width: fit-content;
+}
+.page-item {
+    list-style: none;
+    padding: .5rem;
+    border: 1px solid cornflowerblue;
+    color: cornflowerblue;
+    font-weight: 600;
+    width: 30px;
+  display: flex;
+  justify-content: center;
+    cursor: pointer;
+}
+.active {
+    background-color: cornflowerblue ;
+    color: whitesmoke;
+}
+select {
+    margin-top: 2rem;
+    padding:.3rem ;
+}
